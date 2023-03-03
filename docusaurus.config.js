@@ -6,20 +6,20 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
+  title: 'Ivan Martinez',
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://ivangabino.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Ivan Gabino Martinez Rodriguez', // Usually your GitHub org/user name.
+  projectName: 'website', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -42,14 +42,19 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/igmr/website/tree/main/',
         },
         blog: {
+          blogTitle: 'Blog!',
+          blogDescription: 'Mi blog, Ivan Gabino!',
+          postsPerPage: 'ALL',
+          blogSidebarTitle: 'Todos',
+          blogSidebarCount: 'ALL',
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/igmr/website/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -62,12 +67,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      //image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'Ivan Martinez',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'avatar',
+          src: 'img/avatar.svg',
         },
         items: [
           {
@@ -78,7 +83,7 @@ const config = {
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/igmr/website',
             label: 'GitHub',
             position: 'right',
           },
@@ -88,46 +93,67 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Website',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Inicio',
+                to: '/',
+              },
+              {
+                label: 'Proyectos',
                 to: '/docs/intro',
               },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
               {
                 label: 'Blog',
                 to: '/blog',
               },
+            ],
+          },
+          {
+            title: 'Social',
+            items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/igmr',
+              },
+              {
+                label: 'YouTube',
+                href: 'https://www.youtube.com/@igmr_',
+              },
+              {
+                label: 'Linkedin',
+                href: 'https://www.linkedin.com/in/igmr/',
               },
             ],
           },
+          {
+            title: 'Herramientas',
+            items: [
+              {
+                label: 'Docusaurus',
+                href: 'https://docusaurus.io/',
+              },
+              {
+                label: 'Simple icons',
+                href: 'https://github.com/simple-icons/simple-icons',
+              },
+              {
+                label: 'Shields',
+                href: 'https://shields.io/',
+              },
+              {
+                label: 'Readme generator',
+                href: 'https://github.com/rahuldkjain/github-profile-readme-generator',
+              },
+              {
+                label: 'Canvas',
+                href: 'https://www.canva.com/es_mx',
+              },
+            ],
+          },
+          
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Ivan Gabino`,
       },
       prism: {
         theme: lightCodeTheme,
