@@ -76,13 +76,6 @@ const config = {
         },
         items: [
           {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
             href: 'https://github.com/igmr/website',
             label: 'GitHub',
             position: 'right',
@@ -93,19 +86,11 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Website',
+            title: 'Sitio web',
             items: [
               {
                 label: 'Inicio',
                 to: '/',
-              },
-              {
-                label: 'Proyectos',
-                to: '/docs/intro',
-              },
-              {
-                label: 'Blog',
-                to: '/blog',
               },
             ],
           },
