@@ -1,8 +1,8 @@
 # Website
 
-Página web personal construido con docusaurus
+Personal website built with docusaurus
 
-# Run Server Local
+Run Server Local
 
 ```bash
 npm start
