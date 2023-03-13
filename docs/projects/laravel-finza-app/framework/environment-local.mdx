@@ -1,0 +1,165 @@
+---
+sidebar_position: 3
+sidebar_label: Entorno Local
+sidebar_class_name: green
+title: Instalación y configuración de entorno local
+tags:
+    - Servidor local
+    - Apache
+    - MySQL
+    - composer
+    - PHP 8.1
+    - Software adicionales
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import Ul from '@site/src/components/Ul/Ul.jsx';
+
+Antes de programar debemos de contar con algunos requerimientos técnicos mínimos, para nuestro entorno local.
+Entre ellos esta la instalación y configuración de un servidor web local.
+También el uso de software que nos facilitará el desarrollo web, así como un editor de código, cliente REST, administrador de base de datos.
+
+## Requerimientos técnicos para entorno local
+
+Para desarrollar una aplicación web en laravel, debemos de contar con los siguientes requerimientos técnicos en nuestro equipo.
+
+<Ul>
+    <li>🔘 Servidor web</li>
+    <li>🔘 Base de datos</li>
+    <li>🔘 Composer</li>
+    <li>🔘 Editor de código</li>
+    <li>🔘 Cliente REST</li>
+</Ul>
+
+Para este guía usaremos:
+
+<Ul>
+    <li>🟢 PHP 8.1</li>
+    <li>🟢 MySQL </li>
+    <li>🟢 Composer</li>
+    <li>🟢 Visual Studio Code</li>
+    <li>🟢 Postman</li>
+</Ul>
+
+## Entorno local
+
+A continuación se da algunas opciones de instalación de software para nuestro __entorno local__
+
+<Tabs groupId="operating-systems">
+    <TabItem value="win" label="Windows">
+        <p>En <strong>Windows</strong> podemos utilizar los siguientes software de servidor web que incluye alguna versión de Apache, PHP, MySQL o MariaDB: </p>
+        <Ul>
+            <li>🛠️ <a href="https://www.apachefriends.org/es/download.html">XAMPP</a></li>
+            <li>🛠️ <a href="https://www.apachefriends.org/es/download.html">WampServer</a></li>
+            <li>🛠️ <a href="https://laragon.org/download/index.html">Laragon</a></li>
+            <li>🛠️ <a href="https://usbwebserver.yura.mk.ua/index.php">USBWebServer</a></li>
+        </Ul>
+        <p>También debemos instalar <strong>Composer</strong> siguiendo los pasos desde su <a href="https://getcomposer.org/download/">Página Oficial</a></p>
+        
+    </TabItem>
+    <TabItem value="mac" label="MacOS">
+        <p>Una forma fácil de instalar y gestionar software en MacOS, es utilizar <strong>HomeBrew</strong>, visitar su <a href="https://brew.sh/index_es">Página oficial</a></p>
+        <p>
+            <strong>⚙️ Instalación de HomeBrew</strong>
+            <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+        </p>
+        <Ul>
+            <li>🛠️ Instalación de PHP: <code>brew install php</code></li>
+            <li>🛠️ Instalación de MySQL <code>brew install mysql</code></li>
+            <li>🛠️ Instalación de Composer <code>brew install composer</code></li>
+        </Ul>
+        <p>También podemos visitar las siguientes páginas oficiales.</p>
+        <Ul>
+            <li>🌎 MySQL <a href="https://dev.mysql.com/">Página Oficial</a></li>
+            <li>🌎 Composer <a href="https://getcomposer.org/">Página Oficial</a></li>
+        </Ul>
+    </TabItem>
+    <TabItem value="linux" label="Linux">
+        <p>Las instalaciones estarán enfocadas a las distribuciones <strong>debian</strong></p>
+        <p>
+            <strong>📦 Actualización e instalación de repositorios</strong>
+            <pre>
+                <code>sudo apt update && sudo apt upgrade</code>
+            </pre>
+        </p>
+        <p>
+            <strong>📦 Instalación de Apache (Opcional)</strong>
+            <pre>
+                <code>sudo apt install apache2 apache2-utils apache2-doc</code>
+            </pre>
+        </p>
+        <p>
+            <strong>📦 Instalación de PHP 8.1</strong>
+            <pre>
+                <code>sudo apt install php8.1 libapache2-mod-php8.1 php8.1-pgsql php8.1-sqlite3 php8.1-interbase php8.1-odbc php8.1-sybase php8.1-mysql php8.1-common php8.1-cli php8.1-common php8.1-cli php8.1-opcache php8.1-readline php8.1-mbstring php-pear php8.1-intl php8.1-dom php8.1-curl php8.1-cgi php-json</code>
+            </pre>
+        </p>
+        <p>
+            <strong>📦 Instalación de Maria DB</strong>
+            <pre>
+                <code>sudo apt install mariadb-server mariadb-client mariadb-common</code>
+            </pre>
+        </p>
+        <p>
+            <strong>📦 Instalación de Composer. Ir a <a href="https://getcomposer.org/">página oficial</a></strong>
+        </p>
+    </TabItem>
+</Tabs>
+
+:::caution
+
+Asegurese que al finalizar la instalación este disponible los comandos de **PHP** y **Composer** desde la terminal
+
+Para Verificar la disponiblidad ejecutamos los siguientes comandos:
+
+<Ul>
+    <li><code>php --version</code></li>
+    <li><code>mysql --version</code></li>
+    <li><code>composer --version</code></li>
+</Ul>
+
+:::
+
+## Software adicionales
+
+<p>
+    <strong>Editor de código</strong>
+    <Ul>
+        <li>⚒️ <a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+        <li>⚒️ <a href="https://www.sublimetext.com/">Sublime Text</a></li>
+        <li>⚒️ <a href="https://www.accesstomemory.org/es/">Atom</a></li>
+    </Ul>
+</p>
+
+<p>
+    <strong>Admistrador de base de datos MySQL</strong>
+    <Ul>
+        <li>🗃️ <a href="https://www.mysql.com/products/workbench/">MySQL Workbench</a></li>
+        <li>🗃️ <a href="https://dbeaver.io/">DBeaver Community</a></li>
+    </Ul>
+</p>
+<p>
+    <strong>Navegadores web</strong>
+    <Ul>
+        <li>🌎 <a href="https://www.google.com/intl/es-419/chrome/">Google Chrome</a></li>
+        <li>🌎 <a href="https://www.mozilla.org/es-MX/firefox/developer/">Firefox Developer Edition</a></li>
+        <li>🌎 <a href="https://www.mozilla.org/es-MX/firefox/new/">Mozilla Firefox</a></li>
+    </Ul>
+</p>
+<p>
+    <strong>Clientes REST</strong>
+    <Ul>
+        <li>📮 <a href="https://www.postman.com/">Postman</a></li>
+        <li>📮 <a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client">Extension REST Cliente para  Visual Studio</a></li>
+    </Ul>
+</p>
+<p>
+    <strong>Otros (Opcional)</strong>
+    <Ul>
+        <li>📌 <a href="https://hyper.is/">Hyper</a></li>
+        <li>📌 <a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH">Zsh - oh-my-zsh</a></li>
+        <li>📌 <a href="https://filezilla-project.org/">Cliente FTP FileZilla</a></li>
+    </Ul>
+</p>
+
