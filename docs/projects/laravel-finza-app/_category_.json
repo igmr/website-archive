@@ -1,0 +1,12 @@
+
+{
+    "position"   : 2,
+    "label"      : "Finanzas personales",
+    "collapsible": true,
+    "collapsed"  : true,
+    "link"       : {
+        "type"        : "generated-index",
+        "title"       : "Aplicación web de Finanzas Personales",
+        "description" : "Proyecto realizado con el framework Laravel y el gestor de base de datos MySQL"
+    }
+}
