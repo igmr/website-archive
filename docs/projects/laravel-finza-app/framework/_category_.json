@@ -1,0 +1,12 @@
+
+{
+    "position"   : 1,
+    "label"      : "Laravel",
+    "collapsible": true,
+    "collapsed"  : true,
+    "link"       : {
+        "type"        : "generated-index",
+        "title"       : "Laravel framework",
+        "description" : "Guía de uso del framework Laravel"
+    }
+}
