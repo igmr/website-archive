@@ -80,6 +80,12 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
+          {
+            type: 'doc',
+            docId: 'projects/intro',
+            position: 'left',
+            label: '⚒️ Proyectos',
+          },
         ],
       },
       footer: {

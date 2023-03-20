@@ -1,0 +1,12 @@
+
+{
+    "position"   : 3,
+    "label"      : "🐬 Base de datos",
+    "collapsible": true,
+    "collapsed"  : true,
+    "link"       : {
+        "type"        : "generated-index",
+        "title"       : "🐬 Base de datos",
+        "description" : "En esta sección, se describirá el modelo relacional que se usará, así como las diferentes tablas del modelo."
+    }
+}

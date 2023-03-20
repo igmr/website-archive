@@ -1,4 +1,3 @@
-
 {
     "position"   : 2,
     "label"      : "Finanzas personales",
@@ -6,7 +5,7 @@
     "collapsed"  : true,
     "link"       : {
         "type"        : "generated-index",
-        "title"       : "Aplicación web de Finanzas Personales",
-        "description" : "Proyecto realizado con el framework Laravel y el gestor de base de datos MySQL"
+        "title"       : "⚖️ Aplicación web de Finanzas Personales",
+        "description" : "Proyecto realizado con el framework Laravel 10 y el gestor de base de datos MySQL"
     }
 }
