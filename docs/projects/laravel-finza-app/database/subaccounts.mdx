@@ -3,15 +3,16 @@ sidebar_position: 3
 sidebar_label: 💳 Subaccounts
 title: 💳 Tabla subaccounts
 tags:
-    - Tabla de subcuentas
+    - Tabla de sub cuentas
     - Modelo relacional
     - Proyecto de finanzas personales
 ---
 
-Como sabemos en una tarjeta de débito o crédito, podemos separar
-nuestro dinero en diferentes apartados.
-Cada banco lo nombra de diferente manera, pero el fin es el mismo.
-con esta tabla represento esta operación.
+Para tener mayor control de nuestro efectivo, los bancos
+brindan la posibilidad de administrar nuestro efectivo en
+__sub cuentas__, aunque cada banco lo llama de diferente manera,
+pero el objetivo es el mismo. Esta tabla representará esta
+separación de efectivo en __sub cuentas__.
 
 ## 📄 Columnas
 
@@ -21,7 +22,8 @@ con esta tabla represento esta operación.
             <th>Columna</th>
             <th>Tipo</th>
             <th>Tamaño</th>
-            <th>nulo</th>
+            <th>Nulo</th>
+            <th>Único</th>
             <th>Auto incrementable</th>
             <th>Default</th>
             <th>Comentario</th>
@@ -34,6 +36,7 @@ con esta tabla represento esta operación.
             <td></td>
             <td>🚫</td>
             <td>✅</td>
+            <td>✅</td>
             <td></td>
             <td>Clave primaria</td>
         </tr>
@@ -41,6 +44,7 @@ con esta tabla represento esta operación.
             <td><strong>account_id</strong></td>
             <td>INT</td>
             <td></td>
+            <td>🚫</td>
             <td>🚫</td>
             <td>🚫</td>
             <td></td>
@@ -52,6 +56,7 @@ con esta tabla represento esta operación.
             <td></td>
             <td>🚫</td>
             <td>🚫</td>
+            <td>🚫</td>
             <td>0</td>
             <td>Identificador del usuario, que realiza la ultima operación</td>
         </tr>
@@ -60,6 +65,7 @@ con esta tabla represento esta operación.
             <td>VARCHAR</td>
             <td>255</td>
             <td>🚫</td>
+            <td>✅</td>
             <td>🚫</td>
             <td></td>
             <td></td>
@@ -79,6 +85,7 @@ con esta tabla represento esta operación.
             <td></td>
             <td>🚫</td>
             <td>🚫</td>
+            <td>🚫</td>
             <td>NOW()</td>
             <td>Información de auditoria</td>
         </tr>
@@ -88,6 +95,7 @@ con esta tabla represento esta operación.
             <td></td>
             <td>✅</td>
             <td>🚫</td>
+            <td>🚫</td>
             <td>NULL</td>
             <td>Información de auditoria</td>
         </tr>
@@ -96,6 +104,7 @@ con esta tabla represento esta operación.
             <td>TIMESTAMP</td>
             <td></td>
             <td>✅</td>
+            <td>🚫</td>
             <td>🚫</td>
             <td>NULL</td>
             <td>Información de auditoria</td>

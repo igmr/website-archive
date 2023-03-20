@@ -7,6 +7,6 @@
     "link"       : {
         "type"        : "generated-index",
         "title"       : "🐬 Base de datos",
-        "description" : "En esta sección, se describirá el modelo relacional que se usará, así como las diferentes tablas del modelo."
+        "description" : "En esta sección, se describirá el modelo relacional que se usará, así como las diferentes tablas del modelo relacional."
     }
 }

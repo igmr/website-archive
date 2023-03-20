@@ -10,16 +10,18 @@ tags:
     - Proyecto de finanzas personales
 ---
 
-Script __SQL__, para crear registros a la base de datos dbFinza.
+__Script SQL__, para crear registros hacia la base de datos de __MySQL__.
 
 ## 🛬 Importar script desde terminal
+
+Para Importar un ___archivo___ de __script SQL__, ejecutamos el siguiente comando.
 
 ```bash
 # Sintaxis
 mysql -u <user_name> -p < <path/script/sql>
 
 #Ejemplo
-mysql -u root -p < ~/finza_db.sql
+mysql -u root -p < ~/inserts.sql
 ```
 
 ## 📖 Script SQL para crear registros
@@ -161,11 +163,5 @@ VALUES ('Efectivo');
 -- ----------------------------------------
 INSERT INTO subaccounts(account_id,description)
 VALUES (1, 'Efectivo');
-
--- ----------------------------------------
--- Inserts Settings
--- ----------------------------------------
-INSERT INTO settings (show_all,allow_negatives)
-VALUES (FALSE, FALSE);
 
 ```
