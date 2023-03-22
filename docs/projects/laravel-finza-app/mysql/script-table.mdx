@@ -1,0 +1,178 @@
+---
+sidebar_position: 9
+sidebar_label: 📝 Script SQL - Crear tablas
+title: 📝 Script SQL - Crear tablas
+tags:
+    - MySQL
+    - SQL
+    - Script SQL
+    - Proyecto de finanzas personales
+---
+
+Script __SQL__, para crear tablas en __MySQL__ del proyecto
+finanzas personales.
+
+## 🏗️ Crear base de datos desde terminal
+
+El siguiente comando crear una base de datos, sin acceder el __CLI de MySQL__.
+
+```bash
+# Sintaxis
+mysqladmin -u <user_name> -p create db_name
+
+# ejemplo
+mysqladmin -u root -p create dbFinza
+```
+
+## 🛬 Importar script desde terminal
+
+Una forma rápida de crear tablas a nuestra base de datos
+es mediante un __script SQL__,
+donde estén definidas correctamente las tablas y no allá
+errores de sintaxis.
+Para ejecutar un archivo con __script SQL__, ejecutemos
+el siguiente comando.
+
+```bash
+# Sintaxis
+mysql -u <user_name> -p < <path/script/sql>
+
+#Ejemplo
+mysql -u root -p < ~/finza_db.sql
+```
+
+## 📖 Script SQL para crear tablas
+
+```sql title="~/finza_db.sql"
+-- ----------------------------------------
+-- Table users
+-- ----------------------------------------
+DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users
+(
+  id            INT          NOT NULL AUTO_INCREMENT,
+  name          VARCHAR(65)  NOT NULL,
+  email         VARCHAR(120) NOT NULL,
+  password      VARCHAR(255) NOT NULL,
+  avatar        VARCHAR(255)     NULL DEFAULT NULL,
+  created_date  TIMESTAMP    NOT NULL DEFAULT NOW(),
+  updated_date  TIMESTAMP        NULL DEFAULT NULL,
+  deleted_date  TIMESTAMP        NULL DEFAULT NULL,
+  CONSTRAINT pkUser        PRIMARY KEY(id),
+  CONSTRAINT ukUser        UNIQUE(email)
+);
+
+-- ----------------------------------------
+-- Table accounts
+-- ----------------------------------------
+DROP TABLE IF EXISTS accounts;
+CREATE TABLE IF NOT EXISTS accounts
+(
+  id             INT          NOT NULL AUTO_INCREMENT,
+  user_id        INT          NOT NULL DEFAULT 0,
+  description    VARCHAR(255) NOT NULL,
+  icon           CHAR(45)         NULL DEFAULT NULL,
+  created_date   TIMESTAMP    NOT NULL DEFAULT NOW(),
+  updated_date   TIMESTAMP        NULL DEFAULT NULL,
+  deleted_date   TIMESTAMP        NULL DEFAULT NULL,
+  CONSTRAINT pkAccount        PRIMARY KEY(id),
+  CONSTRAINT ukAccount        UNIQUE(description)
+);
+
+-- ----------------------------------------
+-- Table subaccounts
+-- ----------------------------------------
+DROP TABLE IF EXISTS subaccounts;
+CREATE TABLE IF NOT EXISTS subaccounts
+(
+  id             INT              NOT NULL AUTO_INCREMENT,
+  account_id     INT              NOT NULL DEFAULT 1,
+  user_id        INT              NOT NULL DEFAULT 0,
+  description    VARCHAR(255)     NOT NULL,
+  icon           CHAR(45)             NULL DEFAULT NULL,
+  created_date   TIMESTAMP        NOT NULL DEFAULT NOW(),
+  updated_date   TIMESTAMP            NULL DEFAULT NULL,
+  deleted_date   TIMESTAMP            NULL DEFAULT NULL,
+  CONSTRAINT pkSubaccount         PRIMARY KEY(id),
+  CONSTRAINT fkAccountSubaccount  FOREIGN KEY(account_id) REFERENCES accounts(id)
+);
+
+-- ----------------------------------------
+-- Table categories
+-- ----------------------------------------
+DROP TABLE IF EXISTS categories;
+CREATE TABLE IF NOT EXISTS categories
+(
+  id             INT           NOT NULL AUTO_INCREMENT,
+  user_id        INT           NOT NULL DEFAULT 0,
+  type           INT           NOT NULL DEFAULT 2,
+  description    VARCHAR(255)  NOT NULL,
+  icon           CHAR(45)          NULL DEFAULT NULL,
+  created_date   TIMESTAMP     NOT NULL DEFAULT NOW(),
+  updated_date   TIMESTAMP         NULL DEFAULT NULL,
+  deleted_date   TIMESTAMP         NULL DEFAULT NULL,
+  CONSTRAINT pkCategory      PRIMARY KEY(id),
+  CONSTRAINT ukCategory      UNIQUE(description)
+);
+
+-- ----------------------------------------
+-- Table subcategories
+-- ----------------------------------------
+DROP TABLE IF EXISTS subcategories;
+CREATE TABLE IF NOT EXISTS subcategories
+(
+  id             INT           NOT NULL AUTO_INCREMENT,
+  category_id    INT           NOT NULL DEFAULT 1,
+  user_id        INT           NOT NULL DEFAULT 0,
+  type           INT           NOT NULL DEFAULT 2,
+  description    VARCHAR(255)  NOT NULL,
+  icon           CHAR(45)          NULL DEFAULT NULL,
+  created_date   TIMESTAMP     NOT NULL DEFAULT NOW(),
+  updated_date   TIMESTAMP         NULL DEFAULT NULL,
+  deleted_date   TIMESTAMP         NULL DEFAULT NULL,
+  CONSTRAINT pkSubCategory         PRIMARY KEY(id),
+  CONSTRAINT ukSubCategory         UNIQUE(description),
+  CONSTRAINT fkCategorySubcategory FOREIGN KEY(category_id) REFERENCES categories(id)
+);
+
+-- ----------------------------------------
+-- Table ingress
+-- ----------------------------------------
+DROP TABLE IF EXISTS ingress;
+CREATE TABLE IF NOT EXISTS ingress
+(
+  id             INT          NOT NULL AUTO_INCREMENT,
+  subcategory_id INT          NOT NULL DEFAULT 1,
+  subaccount_id  INT          NOT NULL DEFAULT 1,
+  user_id        INT          NOT NULL DEFAULT 0,
+  amount         DOUBLE       NOT NULL DEFAULT 0,
+  observation    VARCHAR(255)     NULL,
+  created_date   TIMESTAMP    NOT NULL DEFAULT NOW(),
+  updated_date   TIMESTAMP        NULL DEFAULT NULL,
+  deleted_date   TIMESTAMP        NULL DEFAULT NULL,
+  CONSTRAINT pkIngress             PRIMARY KEY(id),
+  CONSTRAINT fkIngressSubcategory FOREIGN KEY(subcategory_id) REFERENCES categories(id),
+  CONSTRAINT fkIngressSubAccount  FOREIGN KEY(subaccount_id) REFERENCES  subaccounts(id)
+);
+
+-- ----------------------------------------
+-- Table egress
+-- ----------------------------------------
+DROP TABLE IF EXISTS egress;
+CREATE TABLE IF NOT EXISTS egress
+(
+  id             INT          NOT NULL AUTO_INCREMENT,
+  subcategory_id INT          NOT NULL DEFAULT 1,
+  subaccount_id  INT          NOT NULL DEFAULT 1,
+  user_id        INT          NOT NULL DEFAULT 0,
+  amount         DOUBLE       NOT NULL DEFAULT 0,
+  observation    VARCHAR(255)     NULL,
+  created_date   TIMESTAMP    NOT NULL DEFAULT NOW(),
+  updated_date   TIMESTAMP        NULL DEFAULT NULL,
+  deleted_date   TIMESTAMP        NULL DEFAULT NULL,
+  CONSTRAINT pkEgress             PRIMARY KEY(id),
+  CONSTRAINT fkEgressSubcategory  FOREIGN KEY(subcategory_id) REFERENCES categories(id),
+  CONSTRAINT fkEgressSubAccount   FOREIGN KEY(subaccount_id) REFERENCES  subaccounts(id)
+);
+
+```

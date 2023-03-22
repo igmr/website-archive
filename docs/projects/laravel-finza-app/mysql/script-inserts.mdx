@@ -1,0 +1,167 @@
+---
+sidebar_position: 10
+sidebar_label: 📝 Script SQL - Crear registros
+title: 📝 Script SQL - Crear registros
+tags:
+    - MySQL
+    - Inserts
+    - SQL
+    - Script SQL
+    - Proyecto de finanzas personales
+---
+
+__Script SQL__, para crear registros hacia la base de datos de __MySQL__.
+
+## 🛬 Importar script desde terminal
+
+Para Importar un ___archivo___ de __script SQL__, ejecutamos el siguiente comando.
+
+```bash
+# Sintaxis
+mysql -u <user_name> -p < <path/script/sql>
+
+#Ejemplo
+mysql -u root -p < ~/inserts.sql
+```
+
+## 📖 Script SQL para crear registros
+
+```sql title="~/inserts.sql"
+-- ----------------------------------------
+-- Usar base de datos dbFinza
+-- ----------------------------------------
+use dbFinza;
+
+-- ----------------------------------------
+-- Inserts categories
+-- ----------------------------------------
+INSERT INTO categories(id, type, description)
+VALUES
+  (001,  01, 'Ingreso'               ),
+  (002,  02, 'Gasto'                 ),
+  (003,  02, 'Vivienda'              ),
+  (004,  02, 'Comida'                ),
+  (005,  02, 'Impuestos y donaciones'),
+  (006,  02, 'Transporte'            ),
+  (007,  02, 'Seguros'               ),
+  (008,  02, 'Ahorros e Inversiones' ),
+  (009,  02, 'Servicios'             ),
+  (010,  02, 'Salud'                 ),
+  (011,  02, 'Vestimenta'            ),
+  (012,  02, 'Recreación'            ),
+  (013,  02, 'Personal'              ),
+  (014,  02, 'Deudas'                );
+
+-- ----------------------------------------
+-- Inserts subcategories
+-- ----------------------------------------
+INSERT INTO subcategories(id, category_id, type, description)
+VALUES
+  (001,  001,  01,  'Ingreso'                        ),
+
+  (002,  002,  02,  'Gasto general'                  ),
+
+  (003,  003,  02,  'Hipoteca Uno/Renta'             ),
+  (004,  003,  02,  'Hipoteca Dos'                   ),
+  (005,  003,  02,  'Impuestos de vivienda'          ),
+  (006,  003,  02,  'Reparaciones/Mantenimiento'     ),
+  (007,  003,  02,  'Gastos de administración'       ),
+
+  (008,  004,  02,  'Despensa'                       ),
+  (009,  004,  02,  'Restaurantes'                   ),
+
+  (010,  005,  02,  'Impuestos'                      ),
+  (011,  005,  02,  'Donaciones'                     ),
+
+  (012,  006,  02,  'Gasolina & Aceite'              ),
+  (013,  006,  02,  'Reparación & Llantas'           ),
+  (014,  006,  02,  'Licencia & Impuestos'           ),
+  (015,  006,  02,  'Reemplazo de Auto'              ),
+  (016,  006,  02,  'Transporte público'             ),
+
+  (017,  007,  02,  'Seguro de vida'                 ),
+  (018,  007,  02,  'Seguro de gastos médicos'       ),
+  (019,  007,  02,  'Seguro de vivienda'             ),
+  (020,  007,  02,  'Seguro de auto'                 ),
+  (021,  007,  02,  'Seguro de incapacidad'          ),
+  (022,  007,  02,  'Seguro contra robo'             ),
+  (023,  007,  02,  'Cuidados a largo plazo'         ),
+
+  (024,  008,  02,  'Fondo de emergencias'           ),
+  (025,  008,  02,  'Fondo para el retiro'           ),
+  (026,  008,  02,  'Fondo para estudios'            ),
+
+  (027,  009,  02,  'Electricidad'                   ),
+  (028,  009,  02,  'Gas'                            ),
+  (029,  009,  02,  'Agua'                           ),
+  (030,  009,  02,  'Servicios de limpieza'          ),
+  (031,  009,  02,  'Teléfono'                       ),
+  (032,  009,  02,  'Internet'                       ),
+  (033,  009,  02,  'Cable'                          ),
+
+  (034,  010,  02,  'Medicamentos'                   ),
+  (035,  010,  02,  'Médicos'                        ),
+  (036,  010,  02,  'Dentista'                       ),
+  (037,  010,  02,  'Optometrista'                   ),
+  (038,  010,  02,  'Vitaminas'                      ),
+  (039,  010,  02,  'Salud otros 1'                  ),
+  (040,  010,  02,  'Salud otros 2'                  ),
+
+  (041,  011,  02,  'Adultos'                        ),
+  (042,  011,  02,  'Niños'                          ),
+  (043,  011,  02,  'Limpieza'                       ),
+
+  (044,  012,  02,  'Entretenimiento'                ),
+  (045,  012,  02,  'Vacaciones'                     ),
+
+  (046,  013,  02,  'Guardería/Niñera'               ),
+  (047,  013,  02,  'Artículos de tocador'           ),
+  (048,  013,  02,  'Cosméticos/Cuidado del cabello' ),
+  (049,  013,  02,  'Educación/Colegiatura'          ),
+  (050,  013,  02,  'Libros/Útiles'                  ),
+  (061,  013,  02,  'Manutención'                    ),
+  (062,  013,  02,  'Pensión alimenticia'            ),
+  (063,  013,  02,  'Suscripciones'                  ),
+  (064,  013,  02,  'Gastos de organización'         ),
+  (065,  013,  02,  'Regalos'                        ),
+  (066,  013,  02,  'Reemplazar muebles'             ),
+  (067,  013,  02,  'Dinero de bolsillo (de el)'     ),
+  (068,  013,  02,  'Dinero de bolsillo (de ella)'   ),
+  (069,  013,  02,  'Artículos para bebé'            ),
+  (070,  013,  02,  'Artículos para mascota'         ),
+  (071,  013,  02,  'Música/Tecnología'              ),
+  (072,  013,  02,  'Varios'                         ),
+  (073,  013,  02,  'Contador'                       ),
+  (074,  013,  02,  'Personal otro 1'                ),
+  (075,  013,  02,  'Personal otro 2'                ),
+
+  (076,  014,  02,  'Pago de auto 1'                 ),
+  (077,  014,  02,  'Pago de auto 2'                 ),
+  (078,  014,  02,  'Tarjeta de crédito 1'           ),
+  (079,  014,  02,  'Tarjeta de crédito 2'           ),
+  (080,  014,  02,  'Tarjeta de crédito 3'           ),
+  (081,  014,  02,  'Tarjeta de crédito 4'           ),
+  (082,  014,  02,  'Tarjeta de crédito 5'           ),
+  (083,  014,  02,  'Préstamo estudiantil 1'         ),
+  (084,  014,  02,  'Préstamo estudiantil 2'         ),
+  (085,  014,  02,  'Préstamo estudiantil 3'         ),
+  (086,  014,  02,  'Préstamo estudiantil 4'         ),
+  (087,  014,  02,  'Deuda otro 1'                   ),
+  (088,  014,  02,  'Deuda otro 2'                   ),
+  (089,  014,  02,  'Deuda otro 3'                   ),
+  (090,  014,  02,  'Deuda otro 4'                   ),
+  (091,  014,  02,  'Deuda otro 5'                   );
+
+-- ----------------------------------------
+-- Inserts account
+-- ----------------------------------------
+INSERT INTO accounts(description)
+VALUES ('Efectivo');
+
+-- ----------------------------------------
+-- Inserts subaccount
+-- ----------------------------------------
+INSERT INTO subaccounts(account_id,description)
+VALUES (1, 'Efectivo');
+
+```
