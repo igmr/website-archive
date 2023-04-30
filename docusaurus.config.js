@@ -62,7 +62,7 @@ const config = {
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
-        title: "Ivan Martinez",
+        title: "{ dev }",
         logo: {
           alt: "avatar",
           src: "img/avatar.svg",
@@ -86,47 +86,6 @@ const config = {
       },
       footer: {
         style: "dark",
-        links: [
-          {
-            title: "🚀 Sitio web",
-            items: [
-              {
-                label: "Inicio",
-                to: "/",
-              },
-            ],
-          },
-          {
-            title: "🌎 Social",
-            items: [
-              {
-                label: "GitHub",
-                href: "https://github.com/igmr",
-              },
-              {
-                label: "YouTube",
-                href: "https://www.youtube.com/@igmr_",
-              },
-              {
-                label: "Linkedin",
-                href: "https://www.linkedin.com/in/igmr/",
-              },
-            ],
-          },
-          {
-            title: "⚒️ Herramientas",
-            items: [
-              {
-                label: "Docusaurus",
-                href: "https://docusaurus.io/",
-              },
-              {
-                label: "Canvas",
-                href: "https://www.canva.com/es_mx",
-              },
-            ],
-          },
-        ],
         copyright: `Copyright © ${new Date().getFullYear()} Ivan Gabino`,
       },
       prism: {
