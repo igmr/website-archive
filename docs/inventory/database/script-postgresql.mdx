@@ -1,0 +1,262 @@
+---
+sidebar_position: 2
+sidebar_label: 🐘 PostgreSQL
+title: Postgresql
+tags:
+  - Script
+  - sql
+  - postgresql
+  - Base de datos
+---
+
+import SpanBlue from "@site/src/components/Html/SpanBlue";
+
+Script **SQL** para gestor de base de datos <SpanBlue>PostgreSQL</SpanBlue>
+
+## 💠 Base de datos
+
+```sql
+DROP DATABASE IF EXIST dbInventory;
+CREATE DATABASE dbInventory
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'es_MX.UTF-8'
+    LC_CTYPE = 'es_MX.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+```
+
+## 💠 Tipo de datos ENUM
+
+```sql
+CREATE TYPE ENUM_OPERATION AS ENUM('active', 'deleted', 'canceled');
+CREATE TYPE ENUM_TYPE_PRODUCT AS ENUM('product', 'service', 'kit');
+```
+
+## 💠 Tablas
+
+```sql
+CREATE TABLE IF NOT EXISTS users(
+    id         SERIAL       NOT NULL UNIQUE,
+    fist_name  VARCHAR(65)  NOT NULL,
+    last_name  VARCHAR(65)  NOT NULL,
+    username   VARCHAR(255) NOT NULL UNIQUE,
+    email      VARCHAR(255) NOT NULL UNIQUE,
+    password   VARCHAR(255) NOT NULL,
+    create_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at  TIMESTAMP        NULL DEFAULT NULL,
+    delete_at  TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT pkUser  PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS brands(
+    id          SERIAL       NOT NULL UNIQUE,
+    description VARCHAR(255) NOT NULL UNIQUE,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkBrand  PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS warehouses(
+    id          SERIAL       NOT NULL UNIQUE,
+    description VARCHAR(255) NOT NULL UNIQUE,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkWarehouse  PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS groups(
+    id          SERIAL       NOT NULL UNIQUE,
+    description VARCHAR(255) NOT NULL UNIQUE,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkGroup  PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS categories(
+    id          SERIAL       NOT NULL UNIQUE,
+    description VARCHAR(255) NOT NULL UNIQUE,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkCategory  PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS ingresses(
+    id          SERIAL         NOT NULL UNIQUE,
+    observation VARCHAR(255)       NULL DEFAULT NULL,
+    status      ENUM_OPERATION NOT NULL DEFAULT 'active',
+    created     DATE           NOT NULL DEFAULT NOW(),
+    create_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP          NULL DEFAULT NULL,
+    delete_at   TIMESTAMP          NULL DEFAULT NULL,
+    CONSTRAINT  pkIngress  PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS egresses(
+    id          SERIAL         NOT NULL UNIQUE,
+    observation VARCHAR(255)       NULL DEFAULT NULL,
+    status      ENUM_OPERATION NOT NULL DEFAULT 'active',
+    created     DATE           NOT NULL DEFAULT NOW(),
+    create_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP          NULL DEFAULT NULL,
+    delete_at   TIMESTAMP          NULL DEFAULT NULL,
+    CONSTRAINT  pkEgress  PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS subcategories(
+    id          SERIAL       NOT NULL UNIQUE,
+    category_id INTEGER      NOT NULL DEFAULT 1,
+    description VARCHAR(255) NOT NULL UNIQUE,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkSubcategory          PRIMARY KEY(id),
+    CONSTRAINT  fkSubcategoryCategory  FOREIGN KEY(category_id) REFERENCES categories(id)
+);
+
+CREATE TABLE IF NOT EXISTS units(
+    id          SERIAL       NOT NULL UNIQUE,
+    group_id    INTEGER      NOT NULL DEFAULT 1,
+    description VARCHAR(255) NOT NULL UNIQUE,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkUnit       PRIMARY KEY(id),
+    CONSTRAINT  fkUnitGroup  FOREIGN KEY(group_id) REFERENCES groups(id)
+);
+
+CREATE TABLE IF NOT EXISTS products(
+    id              SERIAL            NOT NULL UNIQUE,
+    unit_id         INTEGER           NOT NULL DEFAULT 1,
+    brand_id        INTEGER           NOT NULL DEFAULT 1,
+    subcategory_id  INTEGER           NOT NULL DEFAULT 1,
+    description     VARCHAR(255)      NOT NULL UNIQUE,
+    type_product    ENUM_TYPE_PRODUCT NOT NULL DEFAULT 'product',
+    images          VARCHAR(255)          NULL DEFAULT NULL,
+    code            VARCHAR(65)           NULL DEFAULT NULL,
+    create_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at       TIMESTAMP             NULL DEFAULT NULL,
+    delete_at       TIMESTAMP             NULL DEFAULT NULL,
+    CONSTRAINT      pkProduct             PRIMARY KEY(id),
+    CONSTRAINT      fkProductUnit         FOREIGN KEY(unit_id)        REFERENCES units(id),
+    CONSTRAINT      fkProductBrand        FOREIGN KEY(brand_id)       REFERENCES brands(id),
+    CONSTRAINT      fkProductSubcategory  FOREIGN KEY(subcategory_id) REFERENCES subcategories(id)
+);
+
+CREATE TABLE IF NOT EXISTS maximun_and_minimum(
+    id              SERIAL            NOT NULL UNIQUE,
+    product_id      INTEGER           NOT NULL,
+    warehouse_id    INTEGER           NOT NULL,
+    maximum         DECIMAL(10,2)     NOT NULL DEFAULT 0,
+    minimum         DECIMAL(10,2)     NOT NULL DEFAULT 0,
+    create_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at       TIMESTAMP             NULL DEFAULT NULL,
+    delete_at       TIMESTAMP             NULL DEFAULT NULL,
+    CONSTRAINT      pkMaxMin          PRIMARY KEY(id),
+    CONSTRAINT      fkMaxMinProduct   FOREIGN KEY(product_id)   REFERENCES products(id),
+    CONSTRAINT      fkMaxMinWarehouse FOREIGN KEY(warehouse_id) REFERENCES warehouses(id)
+);
+
+CREATE TABLE IF NOT EXISTS products_units(
+    id              SERIAL                NOT NULL UNIQUE,
+    product_id      INTEGER               NOT NULL,
+    unit_id         INTEGER               NOT NULL,
+    factor          DECIMAL(10,2)         NOT NULL,
+    create_at       TIMESTAMP             NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at       TIMESTAMP                 NULL DEFAULT NULL,
+    delete_at       TIMESTAMP                 NULL DEFAULT NULL,
+    CONSTRAINT      pkProductUnit         PRIMARY KEY(id),
+    CONSTRAINT      fkProductUnitProduct  FOREIGN KEY(product_id) REFERENCES products(id),
+    CONSTRAINT      fkProductUnitUnit     FOREIGN KEY(unit_id)    REFERENCES units(id)
+);
+
+CREATE TABLE IF NOT EXISTS ingresses_details(
+    id             SERIAL                   NOT NULL,
+    ingress_id     INTEGER                  NOT NULL,
+    warehouse_id   INTEGER                  NOT NULL,
+    product_id     INTEGER                  NOT NULL,
+    unit_base_id   INTEGER                  NOT NULL,
+    unit_id        INTEGER                  NOT NULL,
+    quantity_base  DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    quantity       DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    factor         DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    price          DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    create_at      TIMESTAMP                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at      TIMESTAMP                    NULL DEFAULT NULL,
+    delete_at      TIMESTAMP                    NULL DEFAULT NULL,
+    CONSTRAINT     pkIngressDetail          PRIMARY KEY(id),
+    CONSTRAINT     fkIngressDetailIngress   FOREIGN KEY(ingress_id)   REFERENCES ingresses(id),
+    CONSTRAINT     fkIngressDetailWarehouse FOREIGN KEY(warehouse_id) REFERENCES warehouses(id),
+    CONSTRAINT     fkIngressDetailProduct   FOREIGN KEY(product_id)   REFERENCES products(id),
+    CONSTRAINT     fkIngressDetailUnitBase  FOREIGN KEY(unit_base_id) REFERENCES units(id),
+    CONSTRAINT     fkIngressDetailUnit      FOREIGN KEY(unit_id)      REFERENCES units(id)
+);
+
+CREATE TABLE IF NOT EXISTS egresses_details(
+    id             SERIAL                  NOT NULL,
+    egress_id      INTEGER                 NOT NULL,
+    warehouse_id   INTEGER                 NOT NULL,
+    product_id     INTEGER                 NOT NULL,
+    unit_base_id   INTEGER                 NOT NULL,
+    unit_id        INTEGER                 NOT NULL,
+    quantity_base  DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    quantity       DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    factor         DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    price          DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    create_at      TIMESTAMP               NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at      TIMESTAMP                   NULL DEFAULT NULL,
+    delete_at      TIMESTAMP                   NULL DEFAULT NULL,
+    CONSTRAINT     pkEgressDetail          PRIMARY KEY(id),
+    CONSTRAINT     fkEgressDetailEgress    FOREIGN KEY(egress_id)    REFERENCES egresses(id),
+    CONSTRAINT     fkEgressDetailWarehouse FOREIGN KEY(warehouse_id) REFERENCES warehouses(id),
+    CONSTRAINT     fkEgressDetailProduct   FOREIGN KEY(product_id)   REFERENCES products(id),
+    CONSTRAINT     fkEgressDetailUnitBase  FOREIGN KEY(unit_base_id) REFERENCES units(id),
+    CONSTRAINT     fkEgressDetailUnit      FOREIGN KEY(unit_id)      REFERENCES units(id),
+    CONSTRAINT     ukEgressDetail          UNIQUE(id)
+);
+```
+
+## 💠 Truncate table
+
+```sql
+TRUNCATE TABLE users;
+TRUNCATE TABLE maximun_and_minimum;
+TRUNCATE TABLE products_units;
+TRUNCATE TABLE ingresses_details;
+TRUNCATE TABLE egresses_details;
+TRUNCATE TABLE warehouses;
+TRUNCATE TABLE ingresses;
+TRUNCATE TABLE egresses;
+TRUNCATE TABLE products;
+TRUNCATE TABLE brands;
+TRUNCATE TABLE subcategories;
+TRUNCATE TABLE units;
+TRUNCATE TABLE groups;
+TRUNCATE TABLE categories;
+```
+
+## 💠 Inserciones demo
+
+```sql
+INSERT INTO brands(description) VALUES ('none');
+
+INSERT INTO warehouses(description) VALUES ('none');
+INSERT INTO warehouses(description) VALUES ('Almacen General');
+
+INSERT INTO groups(description) VALUES ('none');
+
+INSERT INTO categories(description) VALUES ('none');
+
+INSERT INTO subcategories(category_id,description) VALUES (1,'none');
+
+INSERT INTO units(group_id,description) VALUES (1,'none');
+
+INSERT INTO products(unit_id,brand_id,subcategory_id,description,type_product)
+VALUES (1,1,1,'none', 'product');
+```
