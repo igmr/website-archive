@@ -1,0 +1,127 @@
+---
+sidebar_position: 1
+sidebar_label: 🗝 Autenticación
+title: Autenticación
+tags:
+  - Autenticación
+  - API REST
+---
+
+import Ul from "@site/src/components/Html/Ul";
+import UrlBase from "@site/src/components/Inventory/UrlBaseFeature";
+import SpanGreen from "@site/src/components/Html/SpanGreen";
+import SpanRed from "@site/src/components/Html/SpanRed";
+import Admonition from "@theme/Admonition";
+
+<UrlBase />
+
+Crear <SpanGreen>TOKEN</SpanGreen> para consumir la <SpanGreen>API REST</SpanGreen>.
+
+## 🛰 URI 
+
+```bash
+/api/auth
+```
+
+## 🚦 Método: <SpanGreen>POST</SpanGreen>
+
+## 🗂 Cabeceras
+
+<details>
+  <summary>
+    Accept <em>string</em> <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+<details>
+  <summary>
+    Content-Type <em>string</em> <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+## 📌 Parámetros
+
+<SpanRed>No aplica</SpanRed>
+
+## 🛫 Cuerpo
+
+```json {2-3} title="POST http://<SERVER>:<PORT>/api/auth"
+{
+  "email": "<email>",
+  "password": "<password>"
+}
+```
+
+<Admonition type="info" icon="🚀" title="Credenciales de acceso">
+  <p>
+    <SpanGreen>Correo:</SpanGreen> demo@demo.com <br />
+    <SpanGreen>Contraseña:</SpanGreen> password
+  </p>
+</Admonition>
+
+<details>
+  <summary>email <em>string</em> <SpanRed>requerido</SpanRed></summary>
+  Correo electrónico.
+
+<Ul>
+  <li>✅ Máximo: 255 caracteres.</li>
+</Ul>
+
+</details>
+
+<details>
+  <summary>
+    password <em>string</em> <SpanRed>requerido</SpanRed>
+  </summary>
+
+Contraseña de acceso
+
+<Ul>
+  <li>✅ Máximo: 8 caracteres.</li>
+  <li>✅ Máximo: 120 caracteres.</li>
+</Ul>
+
+</details>
+
+## 📨 Respuestas
+
+Tipo: <SpanGreen>application/json</SpanGreen>
+
+<details>
+  <summary>
+    HTTP 200 <SpanGreen>Json</SpanGreen>
+  </summary>
+
+Token Creado correctamente.
+
+```json title="200 HTTP/1.1"
+{
+  "code": 200,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXvCJ9.eyJpZCI6MSwiaWF0IjoxNjgyNjA5MjU3LCJleHAiOjE2ODM5MDg4NTd9.iDjVaBqMsOFlV6tLLnWQG2jEfGSY9ks9rwAk12YcCZ0",
+    "type": "Bearer token"
+  }
+}
+```
+
+</details>
+
+<details>
+  <summary>
+    HTTP 422 <SpanRed>Json</SpanRed>
+  </summary>
+
+Error de validación de datos
+
+```js title="422 HTTP/1.1"
+{
+  "code": 422,
+  "data": {
+    ...errors
+  }
+}
+```
+
+</details>
