@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS warehouses(
     CONSTRAINT  pkWarehouse  PRIMARY KEY(id)
 );
 
-CREATE TABLE IF NOT EXISTS groups(
+CREATE TABLE IF NOT EXISTS groups_units(
     id          SERIAL       NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL UNIQUE,
     create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS units(
     update_at   TIMESTAMP        NULL DEFAULT NULL,
     delete_at   TIMESTAMP        NULL DEFAULT NULL,
     CONSTRAINT  pkUnit       PRIMARY KEY(id),
-    CONSTRAINT  fkUnitGroup  FOREIGN KEY(group_id) REFERENCES groups(id)
+    CONSTRAINT  fkUnitGroup  FOREIGN KEY(group_id) REFERENCES groups_units(id)
 );
 
 CREATE TABLE IF NOT EXISTS products(
@@ -222,25 +222,6 @@ CREATE TABLE IF NOT EXISTS egresses_details(
 );
 ```
 
-## 💠 Truncate table
-
-```sql
-TRUNCATE TABLE users;
-TRUNCATE TABLE maximun_and_minimum;
-TRUNCATE TABLE products_units;
-TRUNCATE TABLE ingresses_details;
-TRUNCATE TABLE egresses_details;
-TRUNCATE TABLE warehouses;
-TRUNCATE TABLE ingresses;
-TRUNCATE TABLE egresses;
-TRUNCATE TABLE products;
-TRUNCATE TABLE brands;
-TRUNCATE TABLE subcategories;
-TRUNCATE TABLE units;
-TRUNCATE TABLE groups;
-TRUNCATE TABLE categories;
-```
-
 ## 💠 Inserciones demo
 
 ```sql
@@ -249,7 +230,7 @@ INSERT INTO brands(description) VALUES ('none');
 INSERT INTO warehouses(description) VALUES ('none');
 INSERT INTO warehouses(description) VALUES ('Almacen General');
 
-INSERT INTO groups(description) VALUES ('none');
+INSERT INTO groups_units(description) VALUES ('none');
 
 INSERT INTO categories(description) VALUES ('none');
 
