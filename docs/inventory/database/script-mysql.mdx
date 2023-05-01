@@ -51,19 +51,19 @@ CREATE TABLE users(
     username   VARCHAR(255) NOT NULL,
     email      VARCHAR(255) NOT NULL,
     password   VARCHAR(255) NOT NULL,
-    create_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at  TIMESTAMP        NULL DEFAULT NULL,
-    delete_at  TIMESTAMP        NULL DEFAULT NULL,
-    CONSTRAINT pkUser  PRIMARY KEY(id, email),
-    CONSTRAINT ukUser UNIQUE(id)
+    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP        NULL DEFAULT NULL,
+    deleted_at  TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT pkUser  PRIMARY KEY(id),
+    CONSTRAINT ukUser UNIQUE(id, email)
 );
 
 CREATE TABLE brands(
     id          INT          NOT NULL AUTO_INCREMENT,
     description VARCHAR(255) NOT NULL,
-    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP        NULL DEFAULT NULL,
-    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP        NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP        NULL DEFAULT NULL,
     CONSTRAINT  pkBrand  PRIMARY KEY(id),
     CONSTRAINT  ukBrand  UNIQUE(id, description)
 );
@@ -71,9 +71,9 @@ CREATE TABLE brands(
 CREATE TABLE warehouses(
     id          INT          NOT NULL AUTO_INCREMENT,
     description VARCHAR(255) NOT NULL,
-    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP        NULL DEFAULT NULL,
-    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP        NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP        NULL DEFAULT NULL,
     CONSTRAINT  pkWarehouse  PRIMARY KEY(id),
     CONSTRAINT  ukWarehouse  UNIQUE(id, description)
 );
@@ -81,9 +81,9 @@ CREATE TABLE warehouses(
 CREATE TABLE groups_units(
     id          INT          NOT NULL AUTO_INCREMENT,
     description VARCHAR(255) NOT NULL,
-    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP        NULL DEFAULT NULL,
-    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP        NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP        NULL DEFAULT NULL,
     CONSTRAINT  pkGroup  PRIMARY KEY(id),
     CONSTRAINT  ukGroup  UNIQUE(id, description)
 );
@@ -91,9 +91,9 @@ CREATE TABLE groups_units(
 CREATE TABLE categories(
     id          INT          NOT NULL AUTO_INCREMENT,
     description VARCHAR(255) NOT NULL,
-    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP        NULL DEFAULT NULL,
-    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP        NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP        NULL DEFAULT NULL,
     CONSTRAINT  pkCategory  PRIMARY KEY(id),
     CONSTRAINT  ukCategory  UNIQUE(id, description)
 );
@@ -104,9 +104,9 @@ CREATE TABLE ingresses(
     status      ENUM('active', 'deleted', 'canceled')
                                 NOT NULL DEFAULT 'active',
     created     DATETIME       NOT NULL DEFAULT NOW(),
-    create_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP          NULL DEFAULT NULL,
-    delete_at   TIMESTAMP          NULL DEFAULT NULL,
+    created_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP          NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP          NULL DEFAULT NULL,
     CONSTRAINT  pkIngress  PRIMARY KEY(id),
     CONSTRAINT  ukIngress  UNIQUE(id)
 );
@@ -117,9 +117,9 @@ CREATE TABLE egresses(
     status      ENUM('active', 'deleted', 'canceled')
                                 NOT NULL DEFAULT 'active',
     created     DATETIME       NOT NULL DEFAULT NOW(),
-    create_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP          NULL DEFAULT NULL,
-    delete_at   TIMESTAMP          NULL DEFAULT NULL,
+    created_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP          NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP          NULL DEFAULT NULL,
     CONSTRAINT  pkEgress  PRIMARY KEY(id),
     CONSTRAINT  ukEgress  UNIQUE(id)
 );
@@ -128,9 +128,9 @@ CREATE TABLE subcategories(
     id          INT          NOT NULL AUTO_INCREMENT,
     category_id INT          NOT NULL DEFAULT 1,
     description VARCHAR(255) NOT NULL,
-    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP        NULL DEFAULT NULL,
-    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP        NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP        NULL DEFAULT NULL,
     CONSTRAINT  pkSubcategory          PRIMARY KEY(id),
     CONSTRAINT  ukSubcategory          UNIQUE(id, description),
     CONSTRAINT  fkSubcategoryCategory  FOREIGN KEY(category_id) REFERENCES categories(id)
@@ -140,9 +140,9 @@ CREATE TABLE units(
     id          INT          NOT NULL AUTO_INCREMENT,
     group_id    INT          NOT NULL DEFAULT 1,
     description VARCHAR(255) NOT NULL,
-    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at   TIMESTAMP        NULL DEFAULT NULL,
-    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP        NULL DEFAULT NULL,
+    deleted_at   TIMESTAMP        NULL DEFAULT NULL,
     CONSTRAINT  pkUnit       PRIMARY KEY(id),
     CONSTRAINT  ukUnit       UNIQUE(id, description),
     CONSTRAINT  fkUnitGroup  FOREIGN KEY(group_id) REFERENCES groups_units(id)
@@ -158,9 +158,9 @@ CREATE TABLE products(
                                       NOT NULL DEFAULT 'product',
     images          VARCHAR(255)          NULL DEFAULT NULL,
     code            VARCHAR(65)           NULL DEFAULT NULL,
-    create_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at       TIMESTAMP             NULL DEFAULT NULL,
-    delete_at       TIMESTAMP             NULL DEFAULT NULL,
+    created_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP             NULL DEFAULT NULL,
+    deleted_at       TIMESTAMP             NULL DEFAULT NULL,
     CONSTRAINT      pkProduct             PRIMARY KEY(id),
     CONSTRAINT      ukProduct             UNIQUE(id, description),
     CONSTRAINT      fkProductUnit         FOREIGN KEY(unit_id)        REFERENCES units(id),
@@ -174,9 +174,9 @@ CREATE TABLE maximun_and_minimum(
     warehouse_id    INTEGER           NOT NULL,
     maximum         DECIMAL(10,2)     NOT NULL DEFAULT 0,
     minimum         DECIMAL(10,2)     NOT NULL DEFAULT 0,
-    create_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at       TIMESTAMP             NULL DEFAULT NULL,
-    delete_at       TIMESTAMP             NULL DEFAULT NULL,
+    created_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP             NULL DEFAULT NULL,
+    deleted_at       TIMESTAMP             NULL DEFAULT NULL,
     CONSTRAINT      pkMaxMin          PRIMARY KEY(id),
     CONSTRAINT      ukMaxMin          UNIQUE(id),
     CONSTRAINT      fkMaxMinProduct   FOREIGN KEY(product_id)   REFERENCES products(id),
@@ -188,9 +188,9 @@ CREATE TABLE products_units(
     product_id      INTEGER               NOT NULL,
     unit_id         INTEGER               NOT NULL,
     factor          DECIMAL(10,2)         NOT NULL,
-    create_at       TIMESTAMP             NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at       TIMESTAMP                 NULL DEFAULT NULL,
-    delete_at       TIMESTAMP                 NULL DEFAULT NULL,
+    created_at       TIMESTAMP             NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP                 NULL DEFAULT NULL,
+    deleted_at       TIMESTAMP                 NULL DEFAULT NULL,
     CONSTRAINT      pkProductUnit         PRIMARY KEY(id),
     CONSTRAINT      ukProductUnit         UNIQUE(id),
     CONSTRAINT      fkProductUnitProduct  FOREIGN KEY(product_id) REFERENCES products(id),
@@ -208,9 +208,9 @@ CREATE TABLE ingresses_details(
     quantity       DECIMAL(10,2)            NOT NULL DEFAULT 0,
     factor         DECIMAL(10,2)            NOT NULL DEFAULT 0,
     price          DECIMAL(10,2)            NOT NULL DEFAULT 0,
-    create_at      TIMESTAMP                NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at      TIMESTAMP                    NULL DEFAULT NULL,
-    delete_at      TIMESTAMP                    NULL DEFAULT NULL,
+    created_at      TIMESTAMP                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP                    NULL DEFAULT NULL,
+    deleted_at      TIMESTAMP                    NULL DEFAULT NULL,
     CONSTRAINT     pkIngressDetail          PRIMARY KEY(id),
     CONSTRAINT     ukIngressDetail          UNIQUE(id),
     CONSTRAINT     fkIngressDetailIngress   FOREIGN KEY(ingress_id)   REFERENCES ingresses(id),
@@ -231,9 +231,9 @@ CREATE TABLE egresses_details(
     quantity       DECIMAL(10,2)           NOT NULL DEFAULT 0,
     factor         DECIMAL(10,2)           NOT NULL DEFAULT 0,
     price          DECIMAL(10,2)           NOT NULL DEFAULT 0,
-    create_at      TIMESTAMP               NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_at      TIMESTAMP                   NULL DEFAULT NULL,
-    delete_at      TIMESTAMP                   NULL DEFAULT NULL,
+    created_at      TIMESTAMP               NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP                   NULL DEFAULT NULL,
+    deleted_at      TIMESTAMP                   NULL DEFAULT NULL,
     CONSTRAINT     pkEgressDetail          PRIMARY KEY(id),
     CONSTRAINT     ukEgressDetail          UNIQUE(id),
     CONSTRAINT     fkEgressDetailEgress    FOREIGN KEY(egress_id)    REFERENCES egresses(id),
