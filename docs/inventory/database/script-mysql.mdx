@@ -1,0 +1,317 @@
+---
+sidebar_position: 3
+sidebar_label: 🐬 MySQL
+title: 🐬 MySQL
+tags:
+  - Script
+  - sql
+  - mysql
+  - Base de datos
+---
+
+import SpanBlue from "@site/src/components/Html/SpanBlue";
+
+Script **SQL** para gestor de base de datos <SpanBlue>MySQL</SpanBlue>
+
+## 💠 Terminal
+
+Crear base de datos desde Terminal
+
+```shell
+# Sintaxis
+# mysqladmin -u <username> -p create <dbname>
+mysqladmin -u root -p create dbInventory
+```
+
+Acceder a <SpanBlue>MySQL</SpanBlue> CLI
+
+```shell
+# Sintaxis
+# mysql -u <username> -p
+mysql -u root -p
+```
+
+## 💠 Base de datos
+
+```sql
+DROP DATABASE dbInventory;
+CREATE DATABASE dbInventory CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE dbInventory;
+```
+
+## 💠 Tablas
+
+```sql
+USE dbInventory;
+
+CREATE TABLE users(
+    id         INT          NOT NULL AUTO_INCREMENT,
+    fist_name  VARCHAR(65)  NOT NULL,
+    last_name  VARCHAR(65)  NOT NULL,
+    username   VARCHAR(255) NOT NULL,
+    email      VARCHAR(255) NOT NULL,
+    password   VARCHAR(255) NOT NULL,
+    create_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at  TIMESTAMP        NULL DEFAULT NULL,
+    delete_at  TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT pkUser  PRIMARY KEY(id, email),
+    CONSTRAINT ukUser UNIQUE(id)
+);
+
+CREATE TABLE brands(
+    id          INT          NOT NULL AUTO_INCREMENT,
+    description VARCHAR(255) NOT NULL,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkBrand  PRIMARY KEY(id),
+    CONSTRAINT  ukBrand  UNIQUE(id, description)
+);
+
+CREATE TABLE warehouses(
+    id          INT          NOT NULL AUTO_INCREMENT,
+    description VARCHAR(255) NOT NULL,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkWarehouse  PRIMARY KEY(id),
+    CONSTRAINT  ukWarehouse  UNIQUE(id, description)
+);
+
+CREATE TABLE groups_units(
+    id          INT          NOT NULL AUTO_INCREMENT,
+    description VARCHAR(255) NOT NULL,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkGroup  PRIMARY KEY(id),
+    CONSTRAINT  ukGroup  UNIQUE(id, description)
+);
+
+CREATE TABLE categories(
+    id          INT          NOT NULL AUTO_INCREMENT,
+    description VARCHAR(255) NOT NULL,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkCategory  PRIMARY KEY(id),
+    CONSTRAINT  ukCategory  UNIQUE(id, description)
+);
+
+CREATE TABLE ingresses(
+    id          INT            NOT NULL AUTO_INCREMENT,
+    observation VARCHAR(255)       NULL DEFAULT NULL,
+    status      ENUM('active', 'deleted', 'canceled')
+                                NOT NULL DEFAULT 'active',
+    created     DATETIME       NOT NULL DEFAULT NOW(),
+    create_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP          NULL DEFAULT NULL,
+    delete_at   TIMESTAMP          NULL DEFAULT NULL,
+    CONSTRAINT  pkIngress  PRIMARY KEY(id),
+    CONSTRAINT  ukIngress  UNIQUE(id)
+);
+
+CREATE TABLE egresses(
+    id          INT            NOT NULL AUTO_INCREMENT,
+    observation VARCHAR(255)       NULL DEFAULT NULL,
+    status      ENUM('active', 'deleted', 'canceled')
+                                NOT NULL DEFAULT 'active',
+    created     DATETIME       NOT NULL DEFAULT NOW(),
+    create_at   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP          NULL DEFAULT NULL,
+    delete_at   TIMESTAMP          NULL DEFAULT NULL,
+    CONSTRAINT  pkEgress  PRIMARY KEY(id),
+    CONSTRAINT  ukEgress  UNIQUE(id)
+);
+
+CREATE TABLE subcategories(
+    id          INT          NOT NULL AUTO_INCREMENT,
+    category_id INT          NOT NULL DEFAULT 1,
+    description VARCHAR(255) NOT NULL,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkSubcategory          PRIMARY KEY(id),
+    CONSTRAINT  ukSubcategory          UNIQUE(id, description),
+    CONSTRAINT  fkSubcategoryCategory  FOREIGN KEY(category_id) REFERENCES categories(id)
+);
+
+CREATE TABLE units(
+    id          INT          NOT NULL AUTO_INCREMENT,
+    group_id    INT          NOT NULL DEFAULT 1,
+    description VARCHAR(255) NOT NULL,
+    create_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at   TIMESTAMP        NULL DEFAULT NULL,
+    delete_at   TIMESTAMP        NULL DEFAULT NULL,
+    CONSTRAINT  pkUnit       PRIMARY KEY(id),
+    CONSTRAINT  ukUnit       UNIQUE(id, description),
+    CONSTRAINT  fkUnitGroup  FOREIGN KEY(group_id) REFERENCES groups_units(id)
+);
+
+CREATE TABLE products(
+    id              INT               NOT NULL AUTO_INCREMENT,
+    unit_id         INT               NOT NULL DEFAULT 1,
+    brand_id        INTEGER           NOT NULL DEFAULT 1,
+    subcategory_id  INTEGER           NOT NULL DEFAULT 1,
+    description     VARCHAR(255)      NOT NULL,
+    type_product    ENUM('product', 'service')
+                                      NOT NULL DEFAULT 'product',
+    images          VARCHAR(255)          NULL DEFAULT NULL,
+    code            VARCHAR(65)           NULL DEFAULT NULL,
+    create_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at       TIMESTAMP             NULL DEFAULT NULL,
+    delete_at       TIMESTAMP             NULL DEFAULT NULL,
+    CONSTRAINT      pkProduct             PRIMARY KEY(id),
+    CONSTRAINT      ukProduct             UNIQUE(id, description),
+    CONSTRAINT      fkProductUnit         FOREIGN KEY(unit_id)        REFERENCES units(id),
+    CONSTRAINT      fkProductBrand        FOREIGN KEY(brand_id)       REFERENCES brands(id),
+    CONSTRAINT      fkProductSubcategory  FOREIGN KEY(subcategory_id) REFERENCES subcategories(id)
+);
+
+CREATE TABLE maximun_and_minimum(
+    id              INT               NOT NULL AUTO_INCREMENT,
+    product_id      INTEGER           NOT NULL,
+    warehouse_id    INTEGER           NOT NULL,
+    maximum         DECIMAL(10,2)     NOT NULL DEFAULT 0,
+    minimum         DECIMAL(10,2)     NOT NULL DEFAULT 0,
+    create_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at       TIMESTAMP             NULL DEFAULT NULL,
+    delete_at       TIMESTAMP             NULL DEFAULT NULL,
+    CONSTRAINT      pkMaxMin          PRIMARY KEY(id),
+    CONSTRAINT      ukMaxMin          UNIQUE(id),
+    CONSTRAINT      fkMaxMinProduct   FOREIGN KEY(product_id)   REFERENCES products(id),
+    CONSTRAINT      fkMaxMinWarehouse FOREIGN KEY(warehouse_id) REFERENCES warehouses(id)
+);
+
+CREATE TABLE products_units(
+    id              INT                   NOT NULL AUTO_INCREMENT,
+    product_id      INTEGER               NOT NULL,
+    unit_id         INTEGER               NOT NULL,
+    factor          DECIMAL(10,2)         NOT NULL,
+    create_at       TIMESTAMP             NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at       TIMESTAMP                 NULL DEFAULT NULL,
+    delete_at       TIMESTAMP                 NULL DEFAULT NULL,
+    CONSTRAINT      pkProductUnit         PRIMARY KEY(id),
+    CONSTRAINT      ukProductUnit         UNIQUE(id),
+    CONSTRAINT      fkProductUnitProduct  FOREIGN KEY(product_id) REFERENCES products(id),
+    CONSTRAINT      fkProductUnitUnit     FOREIGN KEY(unit_id)    REFERENCES units(id)
+);
+
+CREATE TABLE ingresses_details(
+    id             INT                      NOT NULL AUTO_INCREMENT,
+    ingress_id     INT                      NOT NULL,
+    warehouse_id   INT                      NOT NULL,
+    product_id     INT                      NOT NULL,
+    unit_base_id   INT                      NOT NULL,
+    unit_id        INT                      NOT NULL,
+    quantity_base  DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    quantity       DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    factor         DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    price          DECIMAL(10,2)            NOT NULL DEFAULT 0,
+    create_at      TIMESTAMP                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at      TIMESTAMP                    NULL DEFAULT NULL,
+    delete_at      TIMESTAMP                    NULL DEFAULT NULL,
+    CONSTRAINT     pkIngressDetail          PRIMARY KEY(id),
+    CONSTRAINT     ukIngressDetail          UNIQUE(id),
+    CONSTRAINT     fkIngressDetailIngress   FOREIGN KEY(ingress_id)   REFERENCES ingresses(id),
+    CONSTRAINT     fkIngressDetailWarehouse FOREIGN KEY(warehouse_id) REFERENCES warehouses(id),
+    CONSTRAINT     fkIngressDetailProduct   FOREIGN KEY(product_id)   REFERENCES products(id),
+    CONSTRAINT     fkIngressDetailUnitBase  FOREIGN KEY(unit_base_id) REFERENCES units(id),
+    CONSTRAINT     fkIngressDetailUnit      FOREIGN KEY(unit_id)      REFERENCES units(id)
+);
+
+CREATE TABLE egresses_details(
+    id             INT                     NOT NULL AUTO_INCREMENT,
+    egress_id      INT                     NOT NULL,
+    warehouse_id   INT                     NOT NULL,
+    product_id     INT                     NOT NULL,
+    unit_base_id   INT                     NOT NULL,
+    unit_id        INT                     NOT NULL,
+    quantity_base  DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    quantity       DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    factor         DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    price          DECIMAL(10,2)           NOT NULL DEFAULT 0,
+    create_at      TIMESTAMP               NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at      TIMESTAMP                   NULL DEFAULT NULL,
+    delete_at      TIMESTAMP                   NULL DEFAULT NULL,
+    CONSTRAINT     pkEgressDetail          PRIMARY KEY(id),
+    CONSTRAINT     ukEgressDetail          UNIQUE(id),
+    CONSTRAINT     fkEgressDetailEgress    FOREIGN KEY(egress_id)    REFERENCES egresses(id),
+    CONSTRAINT     fkEgressDetailWarehouse FOREIGN KEY(warehouse_id) REFERENCES warehouses(id),
+    CONSTRAINT     fkEgressDetailProduct   FOREIGN KEY(product_id)   REFERENCES products(id),
+    CONSTRAINT     fkEgressDetailUnitBase  FOREIGN KEY(unit_base_id) REFERENCES units(id),
+    CONSTRAINT     fkEgressDetailUnit      FOREIGN KEY(unit_id)      REFERENCES units(id)
+);
+```
+
+## 💠 Drop table
+
+```sql
+USE dbInventory;
+
+SET foreign_key_checks = 0;
+
+DROP TABLE users;
+DROP TABLE brands;
+DROP TABLE warehouses;
+DROP TABLE groups_units;
+DROP TABLE categories;
+DROP TABLE ingresses;
+DROP TABLE egresses;
+DROP TABLE subcategories;
+DROP TABLE units;
+DROP TABLE products;
+DROP TABLE maximun_and_minimum;
+DROP TABLE products_units;
+DROP TABLE ingresses_details;
+DROP TABLE egresses_details;
+
+SET foreign_key_checks = 1;
+```
+
+## 💠 Truncate table
+
+```sql
+USE dbInventory;
+
+SET foreign_key_checks = 0;
+
+TRUNCATE TABLE users;
+TRUNCATE TABLE brands;
+TRUNCATE TABLE warehouses;
+TRUNCATE TABLE groups_units;
+TRUNCATE TABLE categories;
+TRUNCATE TABLE ingresses;
+TRUNCATE TABLE egresses;
+TRUNCATE TABLE subcategories;
+TRUNCATE TABLE units;
+TRUNCATE TABLE products;
+TRUNCATE TABLE maximun_and_minimum;
+TRUNCATE TABLE products_units;
+TRUNCATE TABLE ingresses_details;
+TRUNCATE TABLE egresses_details;
+
+SET foreign_key_checks = 1;
+```
+
+## 💠 Inserciones demo
+
+```sql
+USE dbInventory;
+
+INSERT INTO brands(description) VALUES ('none');
+
+INSERT INTO warehouses(description) VALUES ('none');
+INSERT INTO warehouses(description) VALUES ('Almacen General');
+
+INSERT INTO groups_units(description) VALUES ('none');
+
+INSERT INTO categories(description) VALUES ('none');
+
+INSERT INTO subcategories(category_id,description) VALUES (1,'none');
+
+INSERT INTO units(group_id,description) VALUES (1,'none');
+
+INSERT INTO products(unit_id,brand_id,subcategory_id,description,type_product)
+VALUES (1,1,1,'none', 'product');
+```
