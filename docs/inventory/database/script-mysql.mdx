@@ -156,8 +156,6 @@ CREATE TABLE products(
     description     VARCHAR(255)      NOT NULL,
     type_product    ENUM('product', 'service')
                                       NOT NULL DEFAULT 'product',
-    images          VARCHAR(255)          NULL DEFAULT NULL,
-    code            VARCHAR(65)           NULL DEFAULT NULL,
     created_at       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at       TIMESTAMP             NULL DEFAULT NULL,
     deleted_at       TIMESTAMP             NULL DEFAULT NULL,
