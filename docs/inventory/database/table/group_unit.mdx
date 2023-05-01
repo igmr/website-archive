@@ -1,0 +1,172 @@
+---
+sidebar_position: 6
+sidebar_label: 📦 Grupos
+title: Tabla de agrupación de unidades
+tags:
+  - Grupo
+  - Tabla
+  - Sistema de inventarios
+---
+
+import Admonition from "@theme/Admonition";
+import Ul from "@site/src/components/Html/Ul";
+import SpanGreen from "@site/src/components/Html/SpanGreen";
+import SpanYellow from "@site/src/components/Html/SpanYellow";
+import SpanRed from "@site/src/components/Html/SpanRed";
+import Check from "@site/src/components/Check";
+import Not from "@site/src/components/Not";
+
+<p>
+  <em>
+    Tabla: <SpanYellow>groups_units</SpanYellow>
+  </em>
+</p>
+
+Administración de agrupación por unidades de medida
+
+## 📄 Columnas
+
+<details>
+  <summary>
+    🔑 id <SpanGreen>INT</SpanGreen>
+  </summary>
+  <Ul>
+    <li>
+      <Not /> Null
+    </li>
+    <li>
+      <Check /> Unique
+    </li>
+    <li>
+      <Check /> Primary key
+    </li>
+    <li>📌 Identificador primario de la tabla.</li>
+  </Ul>
+</details>
+
+<details>
+  <summary>
+    description <SpanGreen>VARCHAR(255)</SpanGreen>
+  </summary>
+  <Ul>
+    <li>
+      <Not /> Null
+    </li>
+    <li>
+      <Check /> Unique
+    </li>
+    <li>📌 Descripción del grupo.</li>
+  </Ul>
+</details>
+
+<details>
+  <summary>
+    created_at <SpanGreen>TIMESTAMP</SpanGreen>
+  </summary>
+  <Ul>
+    <li>
+      <Not /> Null
+    </li>
+    <li>
+      <Not /> Unique
+    </li>
+    <li>📍 Valor por defacto: Fecha actual.</li>
+    <li>📌 Información de auditoria, Fecha de creación de registro.</li>
+  </Ul>
+</details>
+
+<details>
+  <summary>
+    updated_at <SpanGreen>TIMESTAMP</SpanGreen>
+  </summary>
+  <Ul>
+    <li>
+      <Check /> Null
+    </li>
+    <li>
+      <Not /> Unique
+    </li>
+    <li>📌 Información de auditoria, Fecha de actualización de registro.</li>
+  </Ul>
+</details>
+
+<details>
+  <summary>
+    deleted_at <SpanGreen>TIMESTAMP</SpanGreen>
+  </summary>
+  <Ul>
+    <li>
+      <Check /> Null
+    </li>
+    <li>
+      <Not /> Unique
+    </li>
+    <li>📌 Información de auditoria, Fecha de eliminación de registro.</li>
+  </Ul>
+</details>
+
+## 📑 Indexes
+
+<details>
+  <summary><SpanYellow>pkGroup</SpanYellow></summary>
+  <Ul>
+    <li>
+      <Check /> Constraint
+    </li>
+    <li>
+      <Check /> Primary key
+    </li>
+    <li>
+      <Check /> Fields
+    </li>
+    <Ul>
+      <li>
+        🖌 <SpanYellow>id</SpanYellow>
+      </li>
+    </Ul>
+  </Ul>
+</details>
+
+<details>
+  <summary><SpanYellow>ukGroup</SpanYellow></summary>
+  <Ul>
+    <li>
+      <Check /> Constraint
+    </li>
+    <li>
+      <Check /> Unique
+    </li>
+    <li>
+      <Check /> Fields
+    </li>
+    <Ul>
+      <li>
+        🖌 <SpanYellow>id</SpanYellow>
+      </li>
+      <li>
+        🖌 <SpanYellow>description</SpanYellow>
+      </li>
+    </Ul>
+  </Ul>
+</details>
+
+## 🚏 Relaciones
+
+<details>
+  <summary>
+    <SpanYellow>Grupo de unidades</SpanYellow>
+    <SpanGreen> 〰1:1〰 </SpanGreen>
+    <SpanYellow>Unidades</SpanYellow>
+  </summary>
+  <Ul>
+    <li>
+      <Not /> Constraint
+    </li>
+    <li>
+      <Check /> Tipo de relación <SpanYellow>1:1</SpanYellow>
+    </li>
+    <li>
+      <Check /> Relacionado con <SpanYellow>units</SpanYellow>
+    </li>
+  </Ul>
+</details>
