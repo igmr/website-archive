@@ -1,0 +1,43 @@
+---
+sidebar_position: 1
+sidebar_label: 📦 Marcas
+title: Marcas
+tags:
+  - Marca
+  - API REST
+  - Sistema de inventarios
+---
+
+import SpanYellow from "@site/src/components/Html/SpanYellow";
+
+Este objeto representa una marca
+
+## Objeto de marca
+
+<details>
+  <summary>
+    id <SpanYellow><em>integer</em></SpanYellow>
+  </summary>
+  Identificador primario de marca.
+  <Ul>
+    <li>✅ Debe ser único.</li>
+  </Ul>
+</details>
+
+<details>
+  <summary>
+    description <SpanYellow><em>string</em></SpanYellow>
+  </summary>
+  description de la marca.
+  <Ul>
+    <li>✅ Debe ser único.</li>
+    <li>✅ Máximo 255 caracteres.</li>
+  </Ul>
+</details>
+
+```json title="marca"
+{
+  "id": 1,
+  "description": "none"
+}
+```
