@@ -5,19 +5,18 @@ title: Autenticación
 tags:
   - Autenticación
   - API REST
+  - Sistema de inventarios
 ---
 
 import Ul from "@site/src/components/Html/Ul";
-import UrlBase from "@site/src/components/Inventory/UrlBaseFeature";
 import SpanGreen from "@site/src/components/Html/SpanGreen";
 import SpanRed from "@site/src/components/Html/SpanRed";
+import SpanYellow from "@site/src/components/Html/SpanYellow";
 import Admonition from "@theme/Admonition";
-
-<UrlBase />
 
 Crear <SpanGreen>TOKEN</SpanGreen> para consumir la <SpanGreen>API REST</SpanGreen>.
 
-## 🛰 URI 
+## 🛰 URI
 
 ```bash
 /api/auth
@@ -29,14 +28,22 @@ Crear <SpanGreen>TOKEN</SpanGreen> para consumir la <SpanGreen>API REST</SpanGre
 
 <details>
   <summary>
-    Accept <em>string</em> <SpanRed>requerido</SpanRed>
+    Accept{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
   </summary>
   Estamos usando json: <SpanGreen>application/json</SpanGreen>
 </details>
 
 <details>
   <summary>
-    Content-Type <em>string</em> <SpanRed>requerido</SpanRed>
+    Content-Type{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
   </summary>
   Estamos usando json: <SpanGreen>application/json</SpanGreen>
 </details>
@@ -62,7 +69,7 @@ Crear <SpanGreen>TOKEN</SpanGreen> para consumir la <SpanGreen>API REST</SpanGre
 </Admonition>
 
 <details>
-  <summary>email <em>string</em> <SpanRed>requerido</SpanRed></summary>
+  <summary>email <SpanYellow><em>string</em></SpanYellow> <SpanRed>requerido</SpanRed></summary>
   Correo electrónico.
 
 <Ul>
@@ -73,7 +80,7 @@ Crear <SpanGreen>TOKEN</SpanGreen> para consumir la <SpanGreen>API REST</SpanGre
 
 <details>
   <summary>
-    password <em>string</em> <SpanRed>requerido</SpanRed>
+    password <SpanYellow><em>string</em></SpanYellow> <SpanRed>requerido</SpanRed>
   </summary>
 
 Contraseña de acceso
@@ -91,7 +98,7 @@ Tipo: <SpanGreen>application/json</SpanGreen>
 
 <details>
   <summary>
-    HTTP 200 <SpanGreen>Json</SpanGreen>
+    <SpanGreen>HTTP 200 Json</SpanGreen>
   </summary>
 
 Token Creado correctamente.
@@ -110,7 +117,7 @@ Token Creado correctamente.
 
 <details>
   <summary>
-    HTTP 422 <SpanRed>Json</SpanRed>
+    <SpanRed>HTTP 422 Json</SpanRed>
   </summary>
 
 Error de validación de datos
