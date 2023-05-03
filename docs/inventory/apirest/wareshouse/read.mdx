@@ -1,0 +1,101 @@
+---
+sidebar_position: 2
+sidebar_label: 🗂️ Obtener lista de almacenes
+title: Obtener lista de almacenes activas
+tags:
+  - Leer
+  - Read
+  - GET
+  - Almacén
+  - API REST
+  - Sistema de inventarios
+---
+
+import Ul from "@site/src/components/Html/Ul";
+import SpanBlue from "@site/src/components/Html/SpanBlue";
+import SpanYellow from "@site/src/components/Html/SpanYellow";
+import SpanGreen from "@site/src/components/Html/SpanGreen";
+import SpanRed from "@site/src/components/Html/SpanRed";
+import Admonition from "@theme/Admonition";
+
+Obtener lista de almacenes activas.
+
+## 🛰 URI
+
+```bash
+/api/warehouse
+```
+
+## 🚦 Método: <SpanBlue>GET</SpanBlue>
+
+## 🗂 Cabeceras
+
+<details>
+  <summary>
+    Authorization{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando el tipo de autorización Bearer: <SpanGreen>Bearer [Token]</SpanGreen>
+</details>
+
+<details>
+  <summary>
+    Accept{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+<details>
+  <summary>
+    Content-Type{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+## 📌 Parámetros
+
+<SpanRed>No aplica</SpanRed>
+
+## 🛫 Cuerpo
+
+<SpanRed>No aplica</SpanRed>
+
+## 📨 Respuestas
+
+Tipo: <SpanGreen>application/json</SpanGreen>
+
+<details>
+  <summary>
+    <SpanGreen>HTTP 200 Json</SpanGreen>
+  </summary>
+
+Lista de almacenes activas.
+
+```json title="200 HTTP/1.1"
+{
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "description": "none"
+        },
+        {
+            "id": 2,
+            "description": "Almacén general"
+        }
+    ]
+}
+```
+
+</details>

@@ -1,0 +1,126 @@
+---
+sidebar_position: 1
+sidebar_label: ➕ Nuevo almacén
+title: Nuevo almacén
+tags:
+  - Crear
+  - Create
+  - POST
+  - Almacén
+  - API REST
+  - Sistema de inventarios
+---
+
+import Admonition from "@theme/Admonition";
+import Ul from "@site/src/components/Html/Ul";
+import SpanYellow from "@site/src/components/Html/SpanYellow";
+import SpanGreen from "@site/src/components/Html/SpanGreen";
+import SpanRed from "@site/src/components/Html/SpanRed";
+
+Crear un almacén.
+
+## 🛰 URI
+
+```bash
+/api/warehouse
+```
+
+## 🚦 Método: <SpanGreen>POST</SpanGreen>
+
+## 🗂 Cabeceras
+
+<details>
+  <summary>
+    Authorization{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando el tipo de autorización Bearer: <SpanGreen>Bearer [Token]</SpanGreen>
+</details>
+
+<details>
+  <summary>
+    Accept{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+<details>
+  <summary>
+    Content-Type{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+## 📌 Parámetros
+
+<SpanRed>No aplica</SpanRed>
+
+## 🛫 Cuerpo
+
+```json {2} title="POST /api/brand"
+{
+  "description": "<description>"
+}
+```
+
+<details>
+  <summary>description <SpanYellow><em>string</em></SpanYellow> <SpanRed>requerido</SpanRed></summary>
+  Descripción de almacén.
+<Ul>
+  <li>✅ Máximo: 255 caracteres.</li>
+  <li>✅ Debe ser único.</li>
+</Ul>
+
+</details>
+
+## 📨 Respuestas
+
+Tipo: <SpanGreen>application/json</SpanGreen>
+
+<details>
+  <summary>
+    <SpanGreen>HTTP 201 Json</SpanGreen>
+  </summary>
+
+Almacén creado.
+
+```json title="201 HTTP/1.1"
+{
+    "code": 201,
+    "data": {
+        "id": 2,
+        "description": "Almacén general"
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary>
+    <SpanRed>HTTP 422 Json</SpanRed>
+  </summary>
+
+Error de validación de datos
+
+```json title="422 HTTP/1.1"
+{
+  "code": 422,
+  "data": {
+    ...errors
+  }
+}
+```
+
+</details>
