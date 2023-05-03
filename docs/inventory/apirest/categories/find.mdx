@@ -1,0 +1,105 @@
+---
+sidebar_position: 3
+sidebar_label: 🔎 Encontrar categoría
+title: Encontrar categoría
+tags:
+  - Encontrar
+  - Read
+  - GET
+  - Categoría
+  - API REST
+  - Sistema de inventarios
+---
+
+import Ul from "@site/src/components/Html/Ul";
+import SpanYellow from "@site/src/components/Html/SpanYellow";
+import SpanBlue from "@site/src/components/Html/SpanBlue";
+import SpanGreen from "@site/src/components/Html/SpanGreen";
+import SpanRed from "@site/src/components/Html/SpanRed";
+import Admonition from "@theme/Admonition";
+
+Obtener una categoría por identificador único.
+
+## 🛰 URI
+
+```bash
+/api/category/{category_id}
+```
+
+## 🚦 Método: <SpanBlue>GET</SpanBlue>
+
+## 🗂 Cabeceras
+
+<details>
+  <summary>
+    Authorization{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando el tipo de autorización Bearer: <SpanGreen>Bearer [Token]</SpanGreen>
+</details>
+
+<details>
+  <summary>
+    Accept{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+<details>
+  <summary>
+    Content-Type{" "}
+    <SpanYellow>
+      <em>string</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Estamos usando json: <SpanGreen>application/json</SpanGreen>
+</details>
+
+## 📌 Parámetros
+
+<details>
+  <summary>
+    category_id{" "}
+    <SpanYellow>
+      <em>integer</em>
+    </SpanYellow>{" "}
+    <SpanRed>requerido</SpanRed>
+  </summary>
+  Identificador primario de categoría.
+  <Ul>
+    <li>✅ Bebe ser mayor a 0.</li>
+  </Ul>
+</details>
+
+## 🛫 Cuerpo
+
+<SpanRed>No aplica</SpanRed>
+
+## 📨 Respuestas
+
+Tipo: <SpanGreen>application/json</SpanGreen>
+
+<details>
+  <summary><SpanGreen>HTTP 200 Json</SpanGreen></summary>
+
+Categoría recuperada exitosamente.
+
+```json title="200 HTTP/1.1"
+{
+    "code": 200,
+    "data": {
+      "id": 2,
+      "description": "Categoría"
+    }
+}
+```
+
+</details>

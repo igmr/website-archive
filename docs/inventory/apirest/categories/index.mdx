@@ -1,9 +1,9 @@
 ---
-sidebar_position: 2
-sidebar_label: 📦 Almacenes
-title: Almacenes
+sidebar_position: 1
+sidebar_label: 📦 Categorías
+title: Categorías
 tags:
-  - Almacén
+  - Categoría
   - API REST
   - Sistema de inventarios
 ---
@@ -11,15 +11,15 @@ tags:
 import SpanYellow from "@site/src/components/Html/SpanYellow";
 import Ul from "@site/src/components/Html/Ul";
 
-Este objeto representa los almacenes.
+Este objeto representa las categorías.
 
-## Objeto de almacén
+## Objeto de categoría
 
 <details>
   <summary>
     id <SpanYellow><em>integer</em></SpanYellow>
   </summary>
-  Identificador primario de almacén.
+  Identificador primario de categoría.
   <Ul>
     <li>✅ Debe ser único.</li>
   </Ul>
@@ -29,14 +29,14 @@ Este objeto representa los almacenes.
   <summary>
     description <SpanYellow><em>string</em></SpanYellow>
   </summary>
-  description de la almacén.
+  description de categoría.
   <Ul>
     <li>✅ Debe ser único.</li>
     <li>✅ Máximo 255 caracteres.</li>
   </Ul>
 </details>
 
-```json title="almacén"
+```json title="categoría"
 {
   "id": 1,
   "description": "none"
