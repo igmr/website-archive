@@ -85,6 +85,26 @@ const config = {
         ],
       },
       footer: {
+        links: [
+          {
+            title: "🚀 Website",
+            items: [
+              {
+                label: "🛸 Inicio",
+                to: "/",
+              },
+            ],
+          },
+          {
+            title: "🚀 Proyectos",
+            items: [
+              {
+                label: "🪙 Finanzas personales",
+                to: "/docs/finza",
+              },
+            ],
+          },
+        ],
         style: "dark",
         copyright: `Copyright © ${new Date().getFullYear()} Ivan Gabino`,
       },
