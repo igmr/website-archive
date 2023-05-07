@@ -1,0 +1,97 @@
+---
+sidebar_position: 3
+sidebar_label: Subcuenta
+title: Tabla de subcuenta
+tags:
+  - subcuenta
+  - Base de datos
+  - Aplicación web de finanzas personales
+---
+
+import Relationship from "@site/src/components/Database/RelationshipFeature";
+import Field from "@site/src/components/Database/FieldFeature";
+import Index from "@site/src/components/Database/IndexFeature";
+import Title from "@site/src/components/Database/TitleTableFeature";
+
+<Title nameTable="subaccounts" />
+
+Representa un clasificación más especifica, que forma parte de una cuenta principal.
+
+## 📄 Columnas
+
+<Field field="id" types="INT" isUnique isPrimaryKey comments="Clave primario" />
+
+<Field field="account_id" types="INT" isForeignKey comments="Clave foráneo" />
+
+<Field field="user_id" types="INT" isForeignKey comments="Clave foráneo" />
+
+<Field
+  field="description"
+  types="VARCHAR(255)"
+  isUnique
+  comments="Nombre de la subcuenta."
+/>
+
+<Field
+  field="created_date"
+  types="TIMESTAMP"
+  comments="Información de auditoria, Fecha de creación del registro."
+/>
+
+<Field
+  field="updated_date"
+  isNull
+  types="TIMESTAMP"
+  comments="Información de auditoria, Fecha de actualización del registro."
+/>
+
+<Field
+  field="deleted_date"
+  isNull
+  types="TIMESTAMP"
+  comments="Información de auditoria, Fecha de eliminación del registro."
+/>
+
+## 📑 Indexes
+
+<Index indexName="pkSubaccount" isPrimaryKey />
+
+<Index indexName="ukSubaccount" isUnique fieldName="description" />
+
+## 🚏 Relaciones
+
+<Relationship
+  table="subaccounts"
+  cardinality="➡1:N➡"
+  foreign="users"
+  constraint=""
+  relationship="1:N"
+  field_id="id"
+/>
+
+<Relationship
+  table="subaccounts"
+  cardinality="〰1:1〰"
+  foreign="ingresses"
+  constraint=""
+  relationship="1:1"
+  field_id="subaccount_id"
+/>
+
+<Relationship
+  table="subaccounts"
+  cardinality="〰1:1〰"
+  foreign="egresses"
+  constraint=""
+  relationship="1:1"
+  field_id="subaccount_id"
+/>
+
+<Relationship
+  table="subaccounts"
+  cardinality="➡1:N➡"
+  foreign="accounts"
+  constraint="fkSubaccountAccount"
+  relationship="1:N"
+  field_id="id"
+/>
