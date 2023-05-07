@@ -90,7 +90,7 @@ const config = {
             title: "🚀 Website",
             items: [
               {
-                label: "🛸 Inicio",
+                label: "Inicio",
                 to: "/",
               },
             ],
@@ -99,7 +99,7 @@ const config = {
             title: "🚀 Proyectos",
             items: [
               {
-                label: "🪙 Finanzas personales",
+                label: "Doc. Finanzas personales",
                 to: "/docs/finza",
               },
             ],
